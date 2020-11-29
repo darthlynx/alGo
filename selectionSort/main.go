@@ -5,17 +5,18 @@ import (
 )
 
 func main() {
-	xx := []int{5, 3, 6, 2, 10}
+	xx := []int{5, 3, 6, 2, 10, 1}
 	fmt.Println("Initial:", xx)
-	fmt.Println("Result:", selectionSort(xx))
+	xx = selectionSort(xx)
+	fmt.Println("Result:", xx)
 }
 
-func findSmallest(arr []int) int {
+func findSmallestElemIndex(arr []int) int {
 	smallest := arr[0]
 	smallestIndex := 0
-	for i, _ := range arr {
-		if arr[i] < smallest {
-			smallest = arr[i]
+	for i, v := range arr {
+		if v < smallest {
+			smallest = v
 			smallestIndex = i
 		}
 	}
@@ -26,9 +27,15 @@ func findSmallest(arr []int) int {
 func selectionSort(arr []int) []int {
 	var resArr []int
 	for len(arr) > 0 {
-		smallestIndex := findSmallest(arr)                          // find the index of the smallest element
-		resArr = append(resArr, arr[smallestIndex])                 // put it into result slice
-		arr = append(arr[:smallestIndex], arr[smallestIndex+1:]...) // remove smallest element from initial slice
+		smallestElemIndex := findSmallestElemIndex(arr) // find the index of the smallest element
+		resArr = append(resArr, arr[smallestElemIndex]) // put it into result slice
+		deleteElem(&arr, smallestElemIndex)             // remove smallest element from initial slice
 	}
 	return resArr
+}
+
+func deleteElem(arr *[]int, i int) {
+	left := (*arr)[:i]
+	right := (*arr)[i+1:]
+	*arr = append(left, right...)
 }
