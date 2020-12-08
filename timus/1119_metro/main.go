@@ -17,16 +17,6 @@ func main() {
 	n := limits[0] + 1 // increace as we start from 1,1 point
 	m := limits[1] + 1 // increace as we start from 1,1 point
 
-	//k := 0
-	//if len(inputlines) > 1 {
-	//	k, _ = strconv.Atoi(inputlines[1])
-	//}
-
-	//for i:=2; i < len(inputlines)-1; i++ {
-	//	tmp := stringToIntArray(inputlines[i], " ")
-
-	//}
-
 	distance := 100.0
 	diag := math.Sqrt(math.Pow(float64(distance), 2) * 2)
 
@@ -42,16 +32,16 @@ func main() {
 		arr[0][i] = arr[0][i-1] + distance
 	}
 
-	for i := 2; i < len(inputlines)-1; i++ {
-		tmp := stringToIntArray(inputlines[i], " ")
-		arr[tmp[0]][tmp[1]] = -1
+	k := 0
+	if len(inputlines) > 1 {
+		k, _ = strconv.Atoi(inputlines[1])
+		if k > 0 {
+			for i := 2; i < 2+k; i++ {
+				tmp := stringToIntArray(inputlines[i], " ")
+				arr[tmp[0]][tmp[1]] = -1
+			}
+		}
 	}
-
-	//arr[1][1] = -1
-	//arr[3][2] = -1
-	//arr[1][2] = -1
-
-	//print(arr, n, m)
 
 	for i := 1; i < n; i++ {
 		for j := 1; j < m; j++ {
