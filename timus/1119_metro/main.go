@@ -54,11 +54,10 @@ func main() {
 		}
 	}
 
-	print(arr, n, m)
+	// print(arr, n, m)
 
 	res := math.Round(arr[len(arr)-1][len(arr[0])-1])
-	fmt.Println("Result:", res)
-	writeOutputToFile("output.txt", fmt.Sprintf("%v", res))
+	fmt.Println(res)
 }
 
 func print(arr [][]float64, n, m int) {
@@ -72,23 +71,20 @@ func print(arr [][]float64, n, m int) {
 }
 
 func getInputLines() []string {
-	file, err := os.Open("input.txt")
-
-	if err != nil {
-		log.Fatalf("failed opening file: %s", err)
+	inputs := make([]string, 0)
+	scanner := bufio.NewScanner(os.Stdin)
+	for {
+		// Scans a line from Stdin(Console)
+		scanner.Scan()
+		// Holds the string that scanned
+		text := scanner.Text()
+		if len(text) != 0 {
+			inputs = append(inputs, text)
+		} else {
+			break
+		}
 	}
-
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanLines)
-	var txtlines []string
-
-	for scanner.Scan() {
-		txtlines = append(txtlines, scanner.Text())
-	}
-
-	file.Close()
-
-	return txtlines
+	return inputs
 }
 
 func stringToIntArray(str, sep string) []int {
@@ -102,8 +98,10 @@ func stringToIntArray(str, sep string) []int {
 }
 
 func writeOutputToFile(fileName, output string) {
-	f2, _ := os.Create(fileName)
+	f2, err := os.Create(fileName)
 	defer f2.Close()
 	f2.WriteString(output)
-	//check(err)
+	if err != nil {
+		log.Fatalf("failed writing to a file: %s", err)
+	}
 }
