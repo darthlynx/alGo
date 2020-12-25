@@ -14,17 +14,18 @@ func main() {
 	m[""] = 0
 	m["abc"] = 3
 	m["au"] = 2
+	m["dvdf"] = 3
+	m["ckilbkd"] = 5
 
 	for k, v := range m {
 		actual := lengthOfLongestSubstring(k)
-		fmt.Println(k, v, actual, actual == v)
+		fmt.Println(k, "\t", v, actual, "\t", actual == v)
 	}
 }
 
 type void struct{}
 
 func lengthOfLongestSubstring(s string) int {
-
 	input := strings.Split(s, "")
 	var max int
 	charset := make(map[string]void)
@@ -32,20 +33,22 @@ func lengthOfLongestSubstring(s string) int {
 		return len(input)
 	}
 	var start int
-	var index int
+	charset[input[start]] = void{}
+	index := 1
 	for index < len(input) {
 		v := input[index]
-		//fmt.Println("value", v)
+		// fmt.Printf("start: %v\t index: %v\t charset: %v\t cur: %v\t prev:%v\n", start, index, charset, v, input[index-1])
 		if _, ok := charset[v]; ok {
 			max = maxNum(max, len(charset))
+			charset = make(map[string]void)
 			start++
 			index = start + 1
-			charset = make(map[string]void)
+			charset[input[start]] = void{}
 		} else {
+			charset[v] = void{}
 			max = maxNum(max, len(charset))
 			index++
 		}
-		charset[v] = void{}
 	}
 	return max
 }
