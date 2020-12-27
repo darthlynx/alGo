@@ -9,32 +9,86 @@ import (
 	"strings"
 )
 
+type query struct {
+	leftEdge  int
+	rightEdge int
+	count     int
+}
+
+type void struct{}
+
 // https://acm.timus.ru/problem.aspx?space=1&num=1613&locale=en
 func main() {
-	// TODO
 	inputs := getInputLines()
-	n, err := strconv.Atoi(inputs[0]) // number of cities
-	fmt.Println(n)
-	checkError(err)
-	statistics := stringToIntArray(inputs[1], " ")
-	q, err := strconv.Atoi(inputs[2]) // requests number
-	checkError(err)
+	// n, err := strconv.Atoi(inputs[0]) // number of cities
+	// checkError(err)
+	// q, err := strconv.Atoi(inputs[2]) // requests number
+	// checkError(err)
 
-	g := make(map[int][]int, q)
+	stats := getStatistics(inputs)
+	queries := getQueries(inputs)
 
-	for i, v := range statistics {
-		g[v] = append(g[v], i+1)
+	for _, q := range queries {
+		if v, ok := stats[q.count]; ok {
+			if len(v) == 0 {
+				fmt.Print(0)
+				continue
+			}
+			floor := lowerBound(v, q.leftEdge)
+			if floor > 0 && q.rightEdge >= floor {
+				fmt.Print(1)
+			} else {
+				fmt.Print(0)
+			}
+		} else {
+			fmt.Print(0)
+		}
+
 	}
 
-	fmt.Println(g)
+}
 
-	// for i := 3; i < len(inputs); i++ {
-	// 	ii := stringToIntArray(inputs[i], " ")
-	// 	graph[ii[len(ii)-1]] = ii[:len(ii)-1]
-	// }
-	// fmt.Println(n)
-	// fmt.Println(statistics)
-	// fmt.Println(graph)
+// map of stat numbers and their positions in initial array
+func getStatistics(inputs []string) map[int][]int {
+	statistics := stringToIntArray(inputs[1], " ")
+	stats := make(map[int][]int, len(statistics))
+	for i, v := range statistics {
+		stats[v] = append(stats[v], i+1)
+	}
+	return stats
+}
+
+func lowerBound(arr []int, value int) int {
+	var l, r, m int
+	l = -1
+	r = len(arr)
+	for l+1 < r {
+		m = (l + r) / 2
+		if m < len(arr) && arr[m] >= value {
+			r = m
+		} else {
+			l = m
+		}
+	}
+	if r > len(arr)-1 {
+		return -1
+	} else {
+		return arr[r]
+	}
+}
+
+func getQueries(inputs []string) []query {
+	queries := []query{}
+	for i := 3; i < len(inputs); i++ {
+		ii := stringToIntArray(inputs[i], " ")
+		q := query{
+			leftEdge:  ii[0],
+			rightEdge: ii[1],
+			count:     ii[2],
+		}
+		queries = append(queries, q)
+	}
+	return queries
 }
 
 func getInputLines() []string {
