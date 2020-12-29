@@ -15,8 +15,6 @@ type query struct {
 	count     int
 }
 
-type void struct{}
-
 // https://acm.timus.ru/problem.aspx?space=1&num=1613&locale=en
 func main() {
 	inputs := getInputLines()
@@ -26,25 +24,30 @@ func main() {
 	// checkError(err)
 
 	stats := getStatistics(inputs)
+	// fmt.Println(stats)
 	queries := getQueries(inputs)
+	// fmt.Println(queries)
 
+	var res strings.Builder
+	// b.Grow(32)
 	for _, q := range queries {
 		if v, ok := stats[q.count]; ok {
 			if len(v) == 0 {
-				fmt.Print(0)
+				fmt.Fprintf(&res, "%v", 0)
 				continue
 			}
-			floor := lowerBound(v, q.leftEdge)
-			if floor > 0 && q.rightEdge >= floor {
-				fmt.Print(1)
+			right := UpperBound(v, q.rightEdge)
+			if right > 0 && right >= q.leftEdge {
+				fmt.Fprintf(&res, "%v", 1)
 			} else {
-				fmt.Print(0)
+				fmt.Fprintf(&res, "%v", 0)
 			}
 		} else {
-			fmt.Print(0)
+			fmt.Fprintf(&res, "%v", 0)
 		}
 
 	}
+	fmt.Println(res.String())
 
 }
 
@@ -58,22 +61,24 @@ func getStatistics(inputs []string) map[int][]int {
 	return stats
 }
 
-func lowerBound(arr []int, value int) int {
-	var l, r, m int
-	l = -1
-	r = len(arr)
-	for l+1 < r {
-		m = (l + r) / 2
-		if m < len(arr) && arr[m] >= value {
-			r = m
+func UpperBound(arr []int, target int) int {
+	if len(arr) == 0 {
+		return -1
+	}
+	min := 0
+	max := len(arr) - 1
+	for min < max {
+		mid := (min + max + 1) / 2
+		if target >= arr[mid] {
+			min = mid
 		} else {
-			l = m
+			max = mid - 1
 		}
 	}
-	if r > len(arr)-1 {
+	if arr[max] > target {
 		return -1
 	} else {
-		return arr[r]
+		return arr[max]
 	}
 }
 
@@ -95,9 +100,7 @@ func getInputLines() []string {
 	inputs := make([]string, 0)
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
-		// Scans a line from Stdin(Console)
 		scanner.Scan()
-		// Holds the string that scanned
 		text := scanner.Text()
 		if len(text) != 0 {
 			inputs = append(inputs, text)
