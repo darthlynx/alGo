@@ -15,8 +15,6 @@ type query struct {
 	count     int
 }
 
-type void struct{}
-
 // https://acm.timus.ru/problem.aspx?space=1&num=1613&locale=en
 func main() {
 	inputs := getInputLines()
@@ -58,6 +56,7 @@ func getStatistics(inputs []string) map[int][]int {
 	return stats
 }
 
+// binary search to find lower bound
 func lowerBound(arr []int, value int) int {
 	var l, r, m int
 	l = -1
@@ -78,7 +77,7 @@ func lowerBound(arr []int, value int) int {
 }
 
 func getQueries(inputs []string) []query {
-	queries := []query{}
+	var queries []query
 	for i := 3; i < len(inputs); i++ {
 		ii := stringToIntArray(inputs[i], " ")
 		q := query{
@@ -109,9 +108,9 @@ func getInputLines() []string {
 }
 
 func stringToIntArray(str, sep string) []int {
-	ii := []int{}
+	var ii []int
 	stringArr := strings.Split(str, sep)
-	for i, _ := range stringArr {
+	for i := range stringArr {
 		tmp, err := strconv.Atoi(stringArr[i])
 		checkError(err)
 		ii = append(ii, tmp)
