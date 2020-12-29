@@ -24,7 +24,7 @@ func main() {
 //https://leetcode.com/problems/longest-substring-without-repeating-characters/
 func lengthOfLongestSubstring(str string) int {
 	var max int
-	presence := getEmptySlice(255)
+	presence := getEmptySlice(255) // will contain unicode characters by their bytes
 	lastRepeated := -1
 	for i := 0; i<len(str); i++ {
 		lastRepeated = maxOf(lastRepeated, presence[str[i]])
