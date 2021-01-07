@@ -22,19 +22,21 @@ type person struct {
 
 // Breadth-First-Search (BFS) implementation
 func bfs(graph map[string][]string, name string) bool {
-	queue := list.New() // Linked List implementation which will be used as Queue
-	addElementsToQueue(queue, graph[name])
+	queue := Queue{
+		list.New(),
+	}
+	queue.addElementsToQueue(graph[name])
 
 	searched := make(map[string]void)
 
-	for queue.Len() > 0 {
-		person := popLeft(queue)
+	for queue.inner.Len() > 0 {
+		person := queue.popLeft()
 		if _, ok := searched[person]; !ok {
 			if check(person) {
 				fmt.Printf("%v is seller\n", person)
 				return true
 			} else {
-				addElementsToQueue(queue, graph[person])
+				queue.addElementsToQueue(graph[person])
 				searched[person] = void{}
 			}
 		}
@@ -46,15 +48,20 @@ func check(element string) bool {
 	return element == "anuj"
 }
 
-func popLeft(queue *list.List) string {
-	e := queue.Front()
-	queue.Remove(e)
+// Queue is a wrapper for the linked list
+type Queue struct {
+	inner *list.List
+}
+
+func (q Queue) popLeft() string {
+	e := q.inner.Front()
+	q.inner.Remove(e)
 	return fmt.Sprintf("%v", e.Value)
 }
 
-func addElementsToQueue(queue *list.List, elems []string) {
+func (q Queue) addElementsToQueue(elems []string) {
 	for _, v := range elems {
-		queue.PushBack(v)
+		q.inner.PushBack(v)
 	}
 }
 
