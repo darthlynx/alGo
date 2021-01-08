@@ -6,10 +6,10 @@ import (
 )
 
 func main() {
-	graph := generateGraph()
+	graph, start := generateGraph()
 	fmt.Println(graph)
 
-	res := bfs(graph, "you")
+	res := bfs(graph, start)
 	fmt.Println(res)
 }
 
@@ -21,19 +21,19 @@ type person struct {
 }
 
 // Breadth-First-Search (BFS) implementation
-func bfs(graph map[string][]string, name string) bool {
+func bfs(graph map[person][]person, start person) bool {
 	queue := Queue{
 		list.New(),
 	}
-	queue.addElementsToQueue(graph[name])
+	queue.addElementsToQueue(graph[start])
 
-	searched := make(map[string]void)
+	searched := make(map[person]void)
 
 	for queue.inner.Len() > 0 {
 		person := queue.popLeft()
 		if _, ok := searched[person]; !ok {
-			if check(person) {
-				fmt.Printf("%v is seller\n", person)
+			if person.isSeller {
+				fmt.Printf("%v is seller\n", person.name)
 				return true
 			} else {
 				queue.addElementsToQueue(graph[person])
@@ -44,37 +44,42 @@ func bfs(graph map[string][]string, name string) bool {
 	return false
 }
 
-func check(element string) bool {
-	return element == "anuj"
-}
-
 // Queue is a wrapper for the linked list
 type Queue struct {
 	inner *list.List
 }
 
-func (q Queue) popLeft() string {
+func (q Queue) popLeft() person {
 	e := q.inner.Front()
 	q.inner.Remove(e)
-	return fmt.Sprintf("%v", e.Value)
+	return e.Value.(person)
 }
 
-func (q Queue) addElementsToQueue(elems []string) {
+func (q Queue) addElementsToQueue(elems []person) {
 	for _, v := range elems {
 		q.inner.PushBack(v)
 	}
 }
 
-// TODO: replace with person struct instead of dummy string
-func generateGraph() map[string][]string {
-	graph := make(map[string][]string)
-	graph["you"] = []string{"alice", "bob", "claire"}
-	graph["bob"] = []string{"anuj", "peggy"}
-	graph["alice"] = []string{"peggy"}
-	graph["claire"] = []string{"thom", "jonny"}
-	graph["anuj"] = []string{}
-	graph["peggy"] = []string{}
-	graph["thom"] = []string{}
-	graph["jonny"] = []string{}
-	return graph
+// return the generated graph and the root node
+func generateGraph() (map[person][]person, person) {
+	anuj := person{"anuj", true}
+	peggy := person{"peggy", false}
+	thom := person{"thom", false}
+	jonny := person{"jonny", false}
+	claire := person{"claire", false}
+	alice := person{"alice", false}
+	bob := person{"bob", false}
+	you := person{"you", false}
+
+	graph := make(map[person][]person)
+	graph[you] = []person{alice, bob, claire}
+	graph[bob] = []person{anuj, peggy}
+	graph[alice] = []person{peggy}
+	graph[claire] = []person{thom, jonny}
+	graph[anuj] = []person{}
+	graph[peggy] = []person{}
+	graph[thom] = []person{}
+	graph[jonny] = []person{}
+	return graph, you
 }
