@@ -17,7 +17,6 @@ func main() {
 func twoSum(numbers []int, target int) []int {
 	for i, v := range numbers {
 		index := UpperBound(numbers, target-v)
-		fmt.Printf("elem index: %v; index: %v\n", i, index)
 		if index >= 0 {
 			return []int{i + 1, index + 1}
 		}
