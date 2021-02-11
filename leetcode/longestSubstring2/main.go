@@ -26,9 +26,12 @@ func lengthOfLongestSubstring(str string) int {
 	var max int
 	presence := getEmptySlice(255) // will contain unicode characters by their bytes
 	lastRepeated := -1
-	for i := 0; i<len(str); i++ {
+	for i := 0; i < len(str); i++ {
 		lastRepeated = maxOf(lastRepeated, presence[str[i]])
-		max = maxOf(max, i - lastRepeated)
+		// find the difference between current position and last repeated value (which contain previous position of this character)
+		// it will give us current length of substring without repeated characters
+		// after that compare it with current max value
+		max = maxOf(max, i-lastRepeated)
 		presence[str[i]] = i
 	}
 	return max
