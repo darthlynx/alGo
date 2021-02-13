@@ -18,7 +18,7 @@ func main() {
 	fmt.Println("prefix sums")
 	printMatrix(pref)
 
-	x1, y1, x2, y2 := 1, 1, 2, 2
+	x1, y1, x2, y2 := 1, 0, 2, 2
 	fmt.Printf("Sum for square: x1=%v, y1=%v, x2=%v, y2=%v =>\t", x1, y1, x2, y2)
 	fmt.Println(getSumOnRectangle(pref, x1, y1, x2, y2))
 
@@ -49,18 +49,17 @@ func setUpPrefixes(matrix [][]int) [][]int {
 }
 
 func getSumOnRectangle(pref [][]int, x1, y1, x2, y2 int) int {
-	return pref[x2][y2] -
-		ternary(x1 > 0, pref[x1-1][y2], 0) -
-		ternary(y1 > 0, pref[x2][y1-1], 0) +
-		ternary(x1 > 0 && y1 > 0, pref[x1-1][y1-1], 0)
-}
-
-func ternary(condition bool, ifYes int, ifNo int) int {
-	if condition {
-		return ifYes
-	} else {
-		return ifNo
+	result := pref[x2][y2]
+	if x1 > 0 {
+		result -= pref[x1-1][y2]
 	}
+	if y1 > 0 {
+		result -= pref[x2][y1-1]
+	}
+	if x1 > 0 && y1 > 0 {
+		result += pref[x1-1][y1-1]
+	}
+	return result
 }
 
 func printMatrix(m [][]int) {
