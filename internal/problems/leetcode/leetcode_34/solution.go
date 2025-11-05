@@ -7,6 +7,7 @@ func searchRange(nums []int, target int) []int {
 	return []int{left, right}
 }
 
+// lowerBound finds the first occurrence of target in a sorted array
 func lowerBound(arr []int, target int) int {
 	if len(arr) == 0 {
 		return -1
@@ -27,6 +28,7 @@ func lowerBound(arr []int, target int) int {
 	return -1
 }
 
+// upperBound finds the last occurrence of target in a sorted array
 func upperBound(arr []int, target int) int {
 	if len(arr) == 0 {
 		return -1
