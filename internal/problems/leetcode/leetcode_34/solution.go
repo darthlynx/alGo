@@ -1,29 +1,14 @@
-package main
-
-import "fmt"
-
-func main() {
-	ii := []int{5, 7, 7, 8, 8, 10}
-	target := 8
-	fmt.Println(searchRange(ii, target))
-	jj := []int{5, 7, 7, 8, 8, 10}
-	target = 6
-	fmt.Println(searchRange(jj, target))
-	var kk []int
-	target = 0
-	fmt.Println(searchRange(kk, target))
-	ll := []int{1}
-	fmt.Println(searchRange(ll, target))
-}
+package leetcode34
 
 // https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
 func searchRange(nums []int, target int) []int {
-	right := UpperBound(nums, target)
-	left := LowerBound(nums, target)
+	right := upperBound(nums, target)
+	left := lowerBound(nums, target)
 	return []int{left, right}
 }
 
-func LowerBound(arr []int, target int) int {
+// lowerBound finds the first occurrence of target in a sorted array
+func lowerBound(arr []int, target int) int {
 	if len(arr) == 0 {
 		return -1
 	}
@@ -43,7 +28,8 @@ func LowerBound(arr []int, target int) int {
 	return -1
 }
 
-func UpperBound(arr []int, target int) int {
+// upperBound finds the last occurrence of target in a sorted array
+func upperBound(arr []int, target int) int {
 	if len(arr) == 0 {
 		return -1
 	}

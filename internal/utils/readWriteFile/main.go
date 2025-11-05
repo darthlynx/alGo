@@ -40,7 +40,10 @@ func readInputsFromFile(fileName string) []string {
 
 func writeOutputToFile(fileName, output string) {
 	f2, err := os.Create(fileName)
-	defer f2.Close()
+	defer func() {
+		err := f2.Close()
+		check(err)
+	}()
 	f2.WriteString(output)
 	check(err)
 }
