@@ -3,6 +3,7 @@ package leetcode3318
 import "sort"
 
 // https://leetcode.com/problems/sum-of-xor-beauty-of-all-subarrays-of-size-k/
+//
 // Time Complexity: O(n * k log k)
 // Space Complexity: O(k)
 func findXSum(nums []int, k int, x int) []int {
