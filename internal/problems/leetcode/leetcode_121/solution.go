@@ -4,16 +4,18 @@ import "math"
 
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock
 func maxProfit(prices []int) int {
-	minSum := math.MaxInt32
+	minPrice := math.MaxInt32
 	maxProfit := 0
 
 	for i := range prices {
-		if prices[i] < minSum {
-			minSum = prices[i]
-		} else {
-			if prices[i]-minSum > maxProfit {
-				maxProfit = prices[i] - minSum
-			}
+		if prices[i] < minPrice {
+			minPrice = prices[i]
+			continue
+		}
+
+		currentProfit := prices[i] - minPrice
+		if currentProfit > maxProfit {
+			maxProfit = currentProfit
 		}
 	}
 
