@@ -1,20 +1,14 @@
-package main
+package leetcode13
 
-import (
-	"fmt"
-	"strings"
-)
+import "strings"
 
 // https://leetcode.com/problems/roman-to-integer/
-func main() {
-	s := "MCMXCIV"
-	i := romanToInt(s)
-	fmt.Println(s, i)
-}
-
+//
+// Time Complexity: O(n)
+// Space Complexity: O(1)
 func romanToInt(s string) int {
 	chars := strings.Split(s, "")
-	symbols := sympolsRepresentation()
+	symbols := symbolsRepresentation()
 
 	var result, previous int
 
@@ -30,7 +24,7 @@ func romanToInt(s string) int {
 	return result
 }
 
-func sympolsRepresentation() map[string]int {
+func symbolsRepresentation() map[string]int {
 	sr := make(map[string]int)
 	sr["I"] = 1
 	sr["V"] = 5
