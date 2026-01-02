@@ -2,4 +2,7 @@ module github.com/darthlynx/algo
 
 go 1.25.3
 
-require github.com/emirpasic/gods v1.18.1
+require (
+	github.com/emirpasic/gods v1.18.1
+	github.com/google/go-cmp v0.7.0
+)
