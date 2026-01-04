@@ -7,32 +7,29 @@ package leetcode1390
 func sumFourDivisors(nums []int) int {
 	sum := 0
 	for _, num := range nums {
-		divisorsSum := getDivisorsSum(num)
-		sum += divisorsSum
+		sum += getDivisorsSum(num)
 	}
-
 	return sum
 }
 
 func getDivisorsSum(num int) int {
-	divisors := []int{}
-
+	count := 0
+	sum := 0
 	for i := 1; i*i <= num; i++ {
 		if num%i == 0 {
-			divisors = append(divisors, i)
+			sum += i
+			count++
 			if i != num/i {
-				divisors = append(divisors, num/i)
+				sum += num / i
+				count++
 			}
-
-			if len(divisors) > 4 {
+			if count > 4 {
 				return 0
 			}
 		}
 	}
-
-	if len(divisors) == 4 {
-		return divisors[0] + divisors[1] + divisors[2] + divisors[3]
+	if count == 4 {
+		return sum
 	}
-
 	return 0
 }
