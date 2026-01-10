@@ -12,38 +12,26 @@ type TreeNode struct {
 // Time Complexity: O(n)
 // Space Complexity: O(h), where h is the height of the tree
 func subtreeWithAllDeepest(root *TreeNode) *TreeNode {
-	maxDepth := getMaxDepth(root, 0)
-	return dfs(root, 0, maxDepth)
+    node, _ := dfs(root, 0)
+    return node
 }
 
-func dfs(root *TreeNode, depth int, maxDepth int) *TreeNode {
-	if root == nil {
-		return nil
-	}
+// returns common ancestor for the deepest node and max depth for the subtree
+func dfs(root *TreeNode, depth int) (*TreeNode, int) {
+    if root == nil {
+        return nil, depth
+    }
 
-	if depth+1 == maxDepth {
-		return root
-	}
+    left, leftDepth := dfs(root.Left, depth + 1)
+    right, rightDepth := dfs(root.Right, depth + 1)
 
-	left := dfs(root.Left, depth+1, maxDepth)
-	right := dfs(root.Right, depth+1, maxDepth)
+	// if both left and right have same depth, then current node is the common ancestor
+    if leftDepth == rightDepth {
+        return root, leftDepth
+    }
 
-	// if both left and right are not nil, it means this is the common ancestor
-	if left != nil && right != nil {
-		return root
-	}
-
-	if left != nil {
-		return left
-	}
-	return right
-}
-
-// DFS to get max depth of the tree
-func getMaxDepth(root *TreeNode, depth int) int {
-	if root == nil {
-		return depth
-	}
-
-	return 1 + max(getMaxDepth(root.Left, depth), getMaxDepth(root.Right, depth))
+    if leftDepth > rightDepth {
+        return left, leftDepth
+    }
+    return right, rightDepth
 }
