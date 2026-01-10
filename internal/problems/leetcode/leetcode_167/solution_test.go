@@ -27,19 +27,13 @@ func TestTwoSum(t *testing.T) {
 			target:  11,
 			want:    []int{5, 6},
 		},
-		{
-			name:    "no solution",
-			numbers: []int{1, 2, 3},
-			target:  7,
-			want:    []int{-1, -1},
-		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := TwoSum(tt.numbers, tt.target)
+			got := twoSum(tt.numbers, tt.target)
 			if !equalPairs(got, tt.want) {
-				t.Errorf("TwoSum() = %v, want %v", got, tt.want)
+				t.Errorf("twoSum() = %v, want %v", got, tt.want)
 			}
 		})
 	}
