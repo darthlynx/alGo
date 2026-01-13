@@ -24,7 +24,7 @@ func separateSquares(squares [][]int) float64 {
 
 	var halfArea float64 = totalArea / 2.0
 
-	// use 100 iterations for better precision
+	// use 50 iterations for better precision (enough for 1e-5)
 	for range 50 {
 		var midY float64 = minY + (maxY-minY)/2
 		area := calculateArea(squares, midY, halfArea)
