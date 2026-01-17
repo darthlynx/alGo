@@ -13,25 +13,20 @@ func largestSquareArea(bottomLeft [][]int, topRight [][]int) int64 {
             if i == j {
                 continue
             }
-
-            // not overlapping by X
-            if bottomLeft[i][0] >= topRight[j][0] || bottomLeft[j][0] >= topRight[i][0] {
-                continue
-            }
-            // not overlapping by Y
-            if topRight[i][1] <= bottomLeft[j][1] || topRight[j][1] <= bottomLeft[i][1] {
-                continue
-            }
-
-            yTop := min(topRight[i][1], topRight[j][1])
+yTop := min(topRight[i][1], topRight[j][1])
             yBottom := max(bottomLeft[i][1], bottomLeft[j][1])
-            yy := yTop - yBottom
+            height := yTop - yBottom
 
             xRight := min(topRight[i][0], topRight[j][0])
             xLeft := max(bottomLeft[i][0], bottomLeft[j][0])
-            xx := xRight - xLeft
+            width := xRight - xLeft
 
-            a := min(xx, yy)
+			// No overlap
+            if height <= 0 || width <= 0 {
+                continue
+            }
+
+            a := min(height, width)
             area := int64(a * a)
             maxArea = max(maxArea, area)
         }
