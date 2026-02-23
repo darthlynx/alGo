@@ -5,18 +5,18 @@ package leetcode9
 // Time Complexity: O(log n) - where n is the input number
 // Space Complexity: O(1)
 func isPalindrome(x int) bool {
-    if x < 0 {
-        return false
-    }
-    rev := reverse(x)
-    return rev == x
+	if x < 0 {
+		return false
+	}
+	rev := reverse(x)
+	return rev == x
 }
 
 func reverse(x int) int {
-    r := 0
-    for x > 0 {
-        r = r * 10 + x % 10
-        x = x / 10
-    }
-    return r
+	r := 0
+	for x > 0 {
+		r = r*10 + x%10
+		x = x / 10
+	}
+	return r
 }
