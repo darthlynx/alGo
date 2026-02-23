@@ -19,22 +19,11 @@ func isValidSudoku(board [][]byte) bool {
 		}
 	}
 
-	// check squares
+	// check 3x3 squares
 	for row := 0; row < n; row += 3 {
 		for col := 0; col < n; col += 3 {
-
-			seen := make(map[byte]bool, 9)
-			for i := row; i < row+3; i++ {
-				for j := col; j < col+3; j++ {
-					v := board[i][j]
-					if v == '.' {
-						continue
-					}
-					if seen[v] {
-						return false
-					}
-					seen[v] = true
-				}
+			if !isValidSquare(row, col, board) {
+				return false
 			}
 		}
 	}
@@ -68,6 +57,23 @@ func isValidCol(j int, board [][]byte) bool {
 			return false
 		}
 		seen[v] = true
+	}
+	return true
+}
+
+func isValidSquare(row int, col int, board [][]byte) bool {
+	seen := make(map[byte]bool, 9)
+	for i := row; i < row+3; i++ {
+		for j := col; j < col+3; j++ {
+			v := board[i][j]
+			if v == '.' {
+				continue
+			}
+			if seen[v] {
+				return false
+			}
+			seen[v] = true
+		}
 	}
 	return true
 }
