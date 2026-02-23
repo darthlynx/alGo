@@ -20,53 +20,54 @@ func isValidSudoku(board [][]byte) bool {
 	}
 
 	// check squares
-	row := 0
-	col := 0
-	for row < n {
+	for row := 0; row < n; row += 3 {
+		for col := 0; col < n; col += 3 {
 
-		for col < n {
-			m := make(map[byte]bool, 9)
+			seen := make(map[byte]bool, 9)
 			for i := row; i < row+3; i++ {
 				for j := col; j < col+3; j++ {
-					if _, ok := m[board[i][j]]; ok {
+					v := board[i][j]
+					if v == '.' {
+						continue
+					}
+					if seen[v] {
 						return false
 					}
-					if board[i][j] != '.' {
-						m[board[i][j]] = true
-					}
+					seen[v] = true
 				}
 			}
-			col += 3
 		}
-		row += 3
-		col = 0
 	}
 
 	return true
 }
 
 func isValidRow(i int, board [][]byte) bool {
-	m := make(map[byte]bool, 9)
+	seen := make(map[byte]bool, 9)
 	for j := 0; j < len(board); j++ {
-		if _, ok := m[board[i][j]]; ok { // found duplicate
+		v := board[i][j]
+		if v == '.' {
+			continue
+		}
+		if seen[v] { // found duplicate
 			return false
 		}
-		if board[i][j] != '.' {
-			m[board[i][j]] = true
-		}
+		seen[v] = true
 	}
 	return true
 }
 
 func isValidCol(j int, board [][]byte) bool {
-	m := make(map[byte]bool, 9)
+	seen := make(map[byte]bool, 9)
 	for i := 0; i < len(board); i++ {
-		if _, ok := m[board[i][j]]; ok { // found duplicate
+		v := board[i][j]
+		if v == '.' {
+			continue
+		}
+		if seen[v] { // found duplicate
 			return false
 		}
-		if board[i][j] != '.' {
-			m[board[i][j]] = true
-		}
+		seen[v] = true
 	}
 	return true
 }
