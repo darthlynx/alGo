@@ -5,11 +5,9 @@ package leetcode3070
 // Time complexity: O(m * n).
 // Space complexity: O(m * n).
 func countSubmatrices(grid [][]int, k int) int {
-	prefixSum := make([][]int, len(grid))
-
 	m := len(grid)
 	n := len(grid[0])
-
+	prefixSum := make([][]int, m)
 	result := 0
 
 	for i := 0; i < m; i++ {
