@@ -7,16 +7,18 @@ import (
 
 // https://leetcode.com/problems/minimum-absolute-difference-in-sliding-submatrix/
 //
-// Time Complexity: O(m * n * k^2).
-// Space Complexity: O(m * n).
+// Time Complexity: O((m-k+1)*(n-k+1)* k^2 log k).
+// Space Complexity: O(k^2).
 func minAbsDiff(grid [][]int, k int) [][]int {
 	m := len(grid)
 	n := len(grid[0])
+	rows := m - k + 1
+	cols := n - k + 1
 
-	result := make([][]int, m-k+1)
+	result := make([][]int, rows)
 
-	for row := 0; row < m-k+1; row++ {
-		for col := 0; col < n-k+1; col++ {
+	for row := 0; row < rows; row++ {
+		for col := 0; col < cols; col++ {
 			minAbsDiff := math.MaxInt
 			dist := make(map[int]struct{})
 			for i := row; i < row+k; i++ {
@@ -25,7 +27,7 @@ func minAbsDiff(grid [][]int, k int) [][]int {
 				}
 			}
 			nums := []int{}
-			for key, _ := range dist {
+			for key := range dist {
 				nums = append(nums, key)
 			}
 			slices.Sort(nums)
