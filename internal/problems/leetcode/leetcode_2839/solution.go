@@ -2,8 +2,8 @@ package leetcode2839
 
 // https://leetcode.com/problems/check-if-strings-can-be-made-equal-with-operations-i/
 //
-// Time Complexity: O(1) since the length of s1 and s2 is fixed at 4
-// Space Complexity: O(1)
+// Time Complexity: O(1) since the length of s1 and s2 is fixed at 4.
+// Space Complexity: O(1).
 func canBeEqual(s1 string, s2 string) bool {
 	chars := []byte(s2)
 	for i := range 4 {
@@ -19,6 +19,8 @@ func canBeEqual(s1 string, s2 string) bool {
 	return false
 }
 
+// Time Complexity: O(1) since the length of s1 and s2 is fixed at 4.
+// Space Complexity: O(1).
 func canBeEqual_2(s1 string, s2 string) bool {
 	same := func(a, b, c, d byte) bool {
 		return (a == c && b == d) || (a == d && b == c)
