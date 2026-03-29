@@ -5,19 +5,16 @@ package leetcode2839
 // Time Complexity: O(1) since the length of s1 and s2 is fixed at 4
 // Space Complexity: O(1)
 func canBeEqual(s1 string, s2 string) bool {
-	chars := []rune(s2)
-	combinations := make(map[string]struct{}, 4)
-
+	chars := []byte(s2)
 	for i := range 4 {
-		combinations[string(chars)] = struct{}{}
+		if s1 == string(chars) {
+			return true
+		}
 		if i%2 == 0 {
 			chars[0], chars[2] = chars[2], chars[0]
 		} else {
 			chars[1], chars[3] = chars[3], chars[1]
 		}
-	}
-	if _, ok := combinations[s1]; ok {
-		return true
 	}
 	return false
 }
