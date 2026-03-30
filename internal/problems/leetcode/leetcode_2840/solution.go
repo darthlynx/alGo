@@ -5,8 +5,8 @@ package leetcode2840
 // Time Complexity: O(n) where n is the length of s1 and s2.
 // Space Complexity: O(1) since the size of odd and even arrays is fixed at 26.
 func checkStrings(s1 string, s2 string) bool {
-	odd := make([]int, 26)
-	even := make([]int, 26)
+	var odd [26]int
+    var even [26]int
 
 	for i := 0; i < len(s2); i++ {
 		ch := int(s2[i] - 'a')
