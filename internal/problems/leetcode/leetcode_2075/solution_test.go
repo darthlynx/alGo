@@ -28,6 +28,14 @@ func TestDecodeCiphertext(t *testing.T) {
 			},
 			want: "i love leetcode",
 		},
+		{
+			name: "test-case-3",
+			args: args{
+				encodedText: " b  ac",
+				rows:        2,
+			},
+			want: " abc",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
