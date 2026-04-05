@@ -8,19 +8,16 @@ func judgeCircle(moves string) bool {
 	leftRight := 0
 	upDown := 0
 
-	movesTypes := map[byte]int{
-		'R': 1,
-		'L': -1,
-		'U': 1,
-		'D': -1,
-	}
-
 	for i := 0; i < len(moves); i++ {
-		move := moves[i]
-		if move == 'R' || move == 'L' {
-			leftRight += movesTypes[move]
-		} else {
-			upDown += movesTypes[move]
+		switch moves[i] {
+		case 'L':
+			leftRight++
+		case 'R':
+			leftRight--
+		case 'U':
+			upDown++
+		case 'D':
+			upDown--
 		}
 	}
 
