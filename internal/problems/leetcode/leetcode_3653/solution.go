@@ -2,7 +2,7 @@ package leetcode3653
 
 // https://leetcode.com/problems/xor-after-range-multiplication-queries-i/
 //
-// Time Complexity: O(n + m), where n is the length of `nums` and m is the length of `queries`.
+// Time Complexity: O(n + m*n), where n is the length of `nums` and m is the length of `queries`.
 // Space Complexity: O(1).
 func xorAfterQueries(nums []int, queries [][]int) int {
 	const modulo = 1_000_000_007
