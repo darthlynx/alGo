@@ -13,7 +13,7 @@ func xorAfterQueries(nums []int, queries [][]int) int {
 	}
 
 	xor := 0
-	for i := 0; i < len(nums); i++ {
+	for i := range nums {
 		xor = xor ^ nums[i]
 	}
 	return xor
