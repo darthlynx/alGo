@@ -1,16 +1,18 @@
+---
+applyTo: "**/*.go,go.mod,go.sum"
+---
 
-## Code expectations
-Generate correct, efficient, and idiomatic Go code that is:
-- Bug-free
-- Secure by default
-- Scalable and maintainable
-- Fully functional and production-ready
-- Following Go best practices and conventions
-- Project structure is following Google styleguides for Go projects
-- Well-documented with clear comments and usage examples
-- Code should be testable, designed through interfaces where applicable
-- Comprehensive unit and integration tests with  coverage above 80%
-- Proper error handling and logging
-- use log/slog as logging library
-- Proper dependency management using Go modules
-- Consistent code formatting using gofmt
+# Go Instructions
+
+Write Go that is idiomatic, simple, and easy to maintain.
+
+- Prefer clear package boundaries, focused functions, and straightforward control flow over clever abstractions.
+- Follow standard Go formatting with `gofmt` and keep imports clean and organized.
+- Handle errors explicitly. When propagating an error, wrap it with useful context using `%w`.
+- Use `context.Context` for request-scoped or cancelable work, and pass it explicitly when applicable.
+- Prefer concrete types by default. Introduce interfaces when they clarify a package boundary, support multiple implementations, or improve testability.
+- Keep concurrency explicit and safe. Avoid goroutine leaks, unbounded fan-out, hidden shared state, and unclear ownership of channels or mutexes.
+- Prefer the standard library unless an external dependency provides clear value.
+- Add comments for exported identifiers and for non-obvious logic only.
+- Write tests that cover happy paths, edge cases, and error paths. Use table-driven tests when they improve readability.
+- In application code, prefer structured logging with `log/slog` when logging is required.
