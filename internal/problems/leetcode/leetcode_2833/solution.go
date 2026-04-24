@@ -7,8 +7,8 @@ package leetcode2833
 func furthestDistanceFromOrigin(moves string) int {
 	pos := 0
 	unCount := 0
-	for i := 0; i < len(moves); i++ {
-		switch moves[i] {
+	for _, move := range moves {
+		switch move {
 		case 'L':
 			pos--
 		case 'R':
