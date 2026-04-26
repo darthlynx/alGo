@@ -16,8 +16,8 @@ func containsCycle(grid [][]byte) bool {
 	// track visited points
 	visited := make(map[[2]int]struct{})
 
-	for i := 0; i < m; i++ {
-		for j := 0; j < n; j++ {
+	for i := range m {
+		for j := range n {
 			// skip visited
 			if _, ok := visited[[2]int{i, j}]; ok {
 				continue
@@ -52,7 +52,7 @@ func hasCycle(root byte, prev [2]int, grid [][]byte, visited map[[2]int]struct{}
 	visited[current] = struct{}{}
 
 	res := false
-	for k := 0; k < 4; k++ {
+	for k := range 4 {
 		nX := i + dx[k]
 		nY := j + dy[k]
 		// skip parent
