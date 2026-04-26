@@ -14,12 +14,15 @@ func containsCycle(grid [][]byte) bool {
 	n := len(grid[0])
 
 	// track visited points
-	visited := make(map[[2]int]struct{})
+	visited := make([][]bool, m)
+	for i := range m {
+		visited[i] = make([]bool, n)
+	}
 
 	for i := range m {
 		for j := range n {
 			// skip visited
-			if _, ok := visited[[2]int{i, j}]; ok {
+			if visited[i][j] {
 				continue
 			}
 			if hasCycle(grid[i][j], [2]int{i, j}, grid, visited, i, j) {
@@ -31,7 +34,7 @@ func containsCycle(grid [][]byte) bool {
 	return false
 }
 
-func hasCycle(root byte, prev [2]int, grid [][]byte, visited map[[2]int]struct{}, i, j int) bool {
+func hasCycle(root byte, prev [2]int, grid [][]byte, visited [][]bool, i, j int) bool {
 	// out of bounds
 	if i < 0 || i >= len(grid) || j < 0 || j >= len(grid[0]) {
 		return false
@@ -44,12 +47,12 @@ func hasCycle(root byte, prev [2]int, grid [][]byte, visited map[[2]int]struct{}
 		return false
 	}
 
-	if _, ok := visited[current]; ok {
+	if visited[i][j] {
 		return true // found the cycle
 	}
 
 	// mark as visited
-	visited[current] = struct{}{}
+	visited[i][j] = true
 
 	res := false
 	for k := range 4 {
