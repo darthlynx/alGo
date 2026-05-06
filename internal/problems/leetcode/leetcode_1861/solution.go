@@ -12,46 +12,25 @@ func rotateTheBox(boxGrid [][]byte) [][]byte {
 	m := len(boxGrid)
 	n := len(boxGrid[0])
 
-	rotatedBox := make([][]byte, n)
-	for i := range n {
-		rotatedBox[i] = make([]byte, m)
-	}
-
-	for i := range n {
-		for j := range m {
-			rotatedBox[i][j] = boxGrid[m-1-j][i]
+	for i := range m {
+		emptyPos := n - 1
+		for j := n - 1; j >= 0; j-- {
+			switch boxGrid[i][j] {
+			case obstacle:
+				emptyPos = j - 1
+			case stone:
+				boxGrid[i][j] = empty
+				boxGrid[i][emptyPos] = stone
+				emptyPos--
+			}
 		}
 	}
 
-	for col := range m {
-		bottom := n - 1
-		top := n - 1
-		for bottom >= 0 {
-			for bottom >= 0 && rotatedBox[bottom][col] != empty {
-				bottom--
-				top = bottom - 1
-			}
-
-			if top < 0 {
-				break
-			}
-
-			if rotatedBox[top][col] == obstacle {
-				top--
-				bottom = top
-				continue
-			}
-			if rotatedBox[top][col] == empty {
-				top--
-				continue
-			}
-			if rotatedBox[top][col] == stone && rotatedBox[bottom][col] == empty {
-				rotatedBox[bottom][col] = stone
-				rotatedBox[top][col] = empty
-				bottom--
-				top--
-				continue
-			}
+	rotatedBox := make([][]byte, n)
+	for i := range n {
+		rotatedBox[i] = make([]byte, m)
+		for j := range m {
+			rotatedBox[i][j] = boxGrid[m-1-j][i]
 		}
 	}
 
