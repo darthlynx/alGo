@@ -1,13 +1,16 @@
 package leetcode1861
 
+const (
+	stone    = '#'
+	obstacle = '*'
+	empty    = '.'
+)
+
 // https://leetcode.com/problems/rotating-the-box/
 //
 // Time complexity: O(m*n).
 // Space complexity: O(m*n).
 func rotateTheBox(boxGrid [][]byte) [][]byte {
-	const stone = '#'
-	const obstacle = '*'
-	const empty = '.'
 
 	m := len(boxGrid)
 	n := len(boxGrid[0])
