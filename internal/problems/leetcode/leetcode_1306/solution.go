@@ -8,8 +8,7 @@ import "fmt"
 // Space complexity: O(n).
 func canReach(arr []int, start int) bool {
 	q := queue{
-		s:       []int{},
-		headIdx: 0,
+		s: []int{},
 	}
 	q.Add(start)
 
@@ -37,8 +36,7 @@ func canReach(arr []int, start int) bool {
 }
 
 type queue struct {
-	s       []int
-	headIdx int
+	s []int
 }
 
 func (q *queue) Add(idx int) {
@@ -46,14 +44,14 @@ func (q *queue) Add(idx int) {
 }
 
 func (q *queue) Pop() (int, error) {
-	if q.headIdx >= len(q.s) {
+	if len(q.s) == 0 {
 		return -1, fmt.Errorf("queue is empty")
 	}
-	num := q.s[q.headIdx]
-	q.headIdx++
+	num := q.s[0]
+	q.s = q.s[1:]
 	return num, nil
 }
 
 func (q *queue) Size() int {
-	return len(q.s) - q.headIdx
+	return len(q.s)
 }
