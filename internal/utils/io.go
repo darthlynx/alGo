@@ -2,54 +2,59 @@ package utils
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 )
 
 func GetInputLinesFromFile(inputFile string) []string {
 	file, err := os.Open(inputFile)
-
 	if err != nil {
 		log.Fatalf("failed opening file: %s", err)
 	}
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Fatalf("failed closing file: %s", err)
+		}
+	}()
 
 	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanLines)
-	var txtlines []string
+	var lines []string
 
 	for scanner.Scan() {
-		txtlines = append(txtlines, scanner.Text())
+		lines = append(lines, scanner.Text())
+	}
+	if err := scanner.Err(); err != nil {
+		log.Fatalf("error reading file: %s", err)
 	}
 
-	file.Close()
-
-	return txtlines
+	return lines
 }
 
 func GetInputLinesFromConsole() []string {
-	inputs := make([]string, 0)
+	var inputs []string
 	scanner := bufio.NewScanner(os.Stdin)
-	for {
-		// Scans a line from Stdin(Console)
-		scanner.Scan()
-		// Holds the string that scanned
+	for scanner.Scan() {
 		text := scanner.Text()
-		if len(text) != 0 {
-			fmt.Println(text)
-			inputs = append(inputs, text)
-		} else {
+		if len(text) == 0 {
 			break
 		}
+		inputs = append(inputs, text)
 	}
 	return inputs
 }
 
 func WriteOutputToFile(fileName, output string) {
-	f2, err := os.Create(fileName)
-	defer f2.Close()
-	f2.WriteString(output)
+	f, err := os.Create(fileName)
 	if err != nil {
-		log.Fatalf("failed writing to a file: %s", err)
+		log.Fatalf("failed creating file: %s", err)
+	}
+	defer func() {
+		if err := f.Close(); err != nil {
+			log.Fatalf("failed closing file: %s", err)
+		}
+	}()
+
+	if _, err := f.WriteString(output); err != nil {
+		log.Fatalf("failed writing to file: %s", err)
 	}
 }
