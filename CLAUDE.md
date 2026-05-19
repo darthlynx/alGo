@@ -54,3 +54,4 @@ Each solution file must also have a URL comment pointing to the problem, followe
 ## Custom Commands
 
 - `/go-review` — senior Go code review focused on correctness, idiomatic style, and test quality
+- `/gen-tests` — generate a complete `solution_test.go` for the current problem from `solution.go`
