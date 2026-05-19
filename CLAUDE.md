@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Repository Purpose
 
 Algorithm implementations and solutions to competitive programming problems in Go. Sources include LeetCode, NeetCode, and Timus Online Judge.
+Agents do not generate or suggest a corrected solution — the user writes the solution themselves.
 
 ## Commands
 
