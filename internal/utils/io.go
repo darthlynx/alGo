@@ -2,32 +2,31 @@ package utils
 
 import (
 	"bufio"
-	"log"
+	"fmt"
 	"os"
 )
 
-func GetInputLinesFromFile(inputFile string) []string {
+func GetInputLinesFromFile(inputFile string) (_ []string, err error) {
 	file, err := os.Open(inputFile)
 	if err != nil {
-		log.Fatalf("failed opening file: %s", err)
+		return nil, fmt.Errorf("failed opening file: %w", err)
 	}
 	defer func() {
-		if err := file.Close(); err != nil {
-			log.Fatalf("failed closing file: %s", err)
+		if cerr := file.Close(); cerr != nil && err == nil {
+			err = fmt.Errorf("failed closing file: %w", cerr)
 		}
 	}()
 
 	scanner := bufio.NewScanner(file)
 	var lines []string
-
 	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
 	}
 	if err := scanner.Err(); err != nil {
-		log.Fatalf("error reading file: %s", err)
+		return nil, fmt.Errorf("error reading file: %w", err)
 	}
 
-	return lines
+	return lines, nil
 }
 
 func GetInputLinesFromConsole() []string {
@@ -43,18 +42,19 @@ func GetInputLinesFromConsole() []string {
 	return inputs
 }
 
-func WriteOutputToFile(fileName, output string) {
+func WriteOutputToFile(fileName, output string) (err error) {
 	f, err := os.Create(fileName)
 	if err != nil {
-		log.Fatalf("failed creating file: %s", err)
+		return fmt.Errorf("failed creating file: %w", err)
 	}
 	defer func() {
-		if err := f.Close(); err != nil {
-			log.Fatalf("failed closing file: %s", err)
+		if cerr := f.Close(); cerr != nil && err == nil {
+			err = fmt.Errorf("failed closing file: %w", cerr)
 		}
 	}()
 
-	if _, err := f.WriteString(output); err != nil {
-		log.Fatalf("failed writing to file: %s", err)
+	if _, err = f.WriteString(output); err != nil {
+		return fmt.Errorf("failed writing to file: %w", err)
 	}
+	return nil
 }
