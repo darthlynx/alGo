@@ -37,16 +37,14 @@ func TestTwoSum(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := TwoSum(tt.nums, tt.target)
+			got := twoSum(tt.nums, tt.target)
 			if !equalPairs(got, tt.want) {
-				t.Errorf("TwoSum() = %v, want %v", got, tt.want)
+				t.Errorf("twoSum() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-// equalPairs checks if two pairs of indices represent the same solution
-// order doesn't matter since there's exactly one solution
 func equalPairs(a, b []int) bool {
 	if len(a) != 2 || len(b) != 2 {
 		return false
