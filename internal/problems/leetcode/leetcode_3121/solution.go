@@ -1,42 +1,32 @@
 package leetcode3121
 
-import "unicode"
-
 // https://leetcode.com/problems/count-the-number-of-special-characters-ii/
 //
 // Time complexity: O(n),
 // Space complexity: O(1)
 func numberOfSpecialChars(word string) int {
-	seen := make(map[rune][]int)
+	firstUpper := [26]int{}
+	lastLower := [26]int{}
+
+	for i := range 26 {
+		firstUpper[i] = -1
+		lastLower[i] = -1
+	}
+
 	special := 0
 
 	for i, char := range word {
-		if location, ok := seen[unicode.ToLower(char)]; ok {
-			if unicode.IsUpper(char) {
-				if location[1] >= 0 {
-					continue
-				} else {
-					location[1] = i
-				}
-			} else {
-				location[0] = i
-			}
+		if char >= 'a' && char <= 'z' { // lower case
+			lastLower[char-'a'] = i
 		} else {
-			location := make([]int, 2)
-			if unicode.IsUpper(char) {
-				location[0] = -1
-				location[1] = i
-			} else {
-				location[0] = i
-				location[1] = -1
+			if firstUpper[char-'A'] == -1 {
+				firstUpper[char-'A'] = i
 			}
-			seen[unicode.ToLower(char)] = location
 		}
-
 	}
 
-	for _, val := range seen {
-		if val[0] >= 0 && val[1] >= 0 && val[1] > val[0] {
+	for i := range 26 {
+		if lastLower[i] >= 0 && firstUpper[i] >= 0 && lastLower[i] < firstUpper[i] {
 			special++
 		}
 	}
