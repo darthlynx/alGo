@@ -1,4 +1,4 @@
-package leetcode2130
+package twopointers
 
 import "testing"
 
