@@ -19,7 +19,7 @@ func processStr(s string) string {
 		case '%':
 			reverse(stack)
 		default:
-			stack = append(stack, byte(s[i]))
+			stack = append(stack, s[i])
 		}
 	}
 
