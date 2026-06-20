@@ -7,10 +7,10 @@ import (
 
 // https://leetcode.com/problems/maximum-building-height/
 //
-// Time Complexity: O(n*logn).
-// Space Complexity: O(n).
+// Time Complexity: O(m*log m).
+// Space Complexity: O(m).
 func maxBuilding(n int, restrictions [][]int) int {
-	restrictions = append(restrictions, []int{1, 0})
+	restrictions = append(restrictions, []int{1, 0}) // the height of the first building must be 0
 	slices.SortFunc(restrictions, func(a, b []int) int {
 		return cmp.Compare(a[0], b[0])
 	})
@@ -41,6 +41,5 @@ func maxBuilding(n int, restrictions [][]int) int {
 		result = max(result, currMax)
 	}
 
-	//fmt.Println(restrictions)
 	return result
 }
