@@ -45,6 +45,12 @@ func TestMaxBuilding(t *testing.T) {
 			restrictions: [][]int{{3, 1000000000}},
 			want:         9,
 		},
+		{
+			name:         "unsorted dense restrictions",
+			n:            10,
+			restrictions: [][]int{{8, 5}, {9, 0}, {6, 2}, {4, 0}, {3, 2}, {10, 0}, {5, 3}, {7, 3}, {2, 4}},
+			want:         2,
+		},
 	}
 
 	for _, tt := range tests {

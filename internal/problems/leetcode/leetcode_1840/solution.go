@@ -27,10 +27,10 @@ func maxBuilding(n int, restrictions [][]int) int {
 	}
 
 	// from right to left
-	for i := m - 1; i >= 1; i-- {
-		distance := restrictions[i][0] - restrictions[i-1][0]
+	for i := m - 2; i >= 0; i-- {
+		distance := restrictions[i+1][0] - restrictions[i][0]
 		// correct restriction for current building
-		restrictions[i][1] = min(restrictions[i][1], restrictions[i-1][1]+distance)
+		restrictions[i][1] = min(restrictions[i][1], restrictions[i+1][1]+distance)
 	}
 
 	result := 0
