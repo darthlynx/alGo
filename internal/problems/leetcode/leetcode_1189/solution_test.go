@@ -15,8 +15,11 @@ func TestMaxNumberOfBalloons(t *testing.T) {
 		{"exactly one balloon", "balloon", 1},
 		{"missing letter b", "alloonalloon", 0},
 		{"only one l", "balon", 0},
-		{"only one o", "balln", 0},
+		{"no o", "balln", 0},
 		{"three balloons", "balloonballoonballoon", 3},
+		{"excess l and o, single b limits", "balllllloooooon", 1},
+		{"single l, double o", "baloon", 0},
+		{"extra l and o, b is bottleneck", "balloonloon", 1},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -7,29 +7,19 @@ import "math"
 // Time Complexity: O(n).
 // Space Complexity: O(1).
 func maxNumberOfBalloons(text string) int {
-	freq := make(map[rune]int, 26)
-
+	freq := [26]int{}
 	for _, ch := range text {
-		freq[ch] = freq[ch] + 1
+		freq[ch-'a']++
 	}
 
-	balloon := "balloon"
-
+	// 'balloon' has double l and o, so we need to divide their frequency by 2
 	minFreq := math.MaxInt
-	for _, ch := range balloon {
-		val, ok := freq[ch]
-		if !ok {
-			return 0
-		}
-		if (ch == 'l' || ch == 'o') && val < 2 {
-			return 0
-		}
-		minFreq = min(minFreq, val)
+	for _, ch := range "ban" {
+		minFreq = min(minFreq, freq[ch-'a'])
 	}
-	frL := freq['l']
-	frO := freq['o']
-	minFreq = min(minFreq, frL/2)
-	minFreq = min(minFreq, frO/2)
+	for _, ch := range "lo" {
+		minFreq = min(minFreq, freq[ch-'a']/2)
+	}
 
 	return minFreq
 }
