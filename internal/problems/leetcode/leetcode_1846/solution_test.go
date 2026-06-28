@@ -13,8 +13,11 @@ func TestMaximumElementAfterDecrementingAndRearranging(t *testing.T) {
 		{"example 3", []int{1, 2, 3, 4, 5}, 5},
 		{"single element", []int{73}, 1},
 		{"all ones", []int{1, 1, 1, 1}, 1},
+		{"all same", []int{5, 5, 5, 5}, 4},
 		{"large gaps", []int{1, 1000000}, 2},
 		{"already sequential from one", []int{3, 1, 2, 4, 6, 5}, 6},
+		{"clamp down one element", []int{1, 2, 2, 2, 5}, 3},
+		{"all higher than one", []int{30, 40, 60, 90}, 4},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
