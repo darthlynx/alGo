@@ -16,17 +16,12 @@ func removeCoveredIntervals(intervals [][]int) int {
 
 	toRemove := 0
 	bestRightBoundary := intervals[0][1]
-	toCompare := 0
 	for i := 1; i < len(intervals); i++ {
 		curr := intervals[i]
-		prev := intervals[toCompare]
-		if curr[0] >= prev[0] && curr[1] <= prev[1] {
+		if curr[1] <= bestRightBoundary {
 			toRemove++
 		} else {
-			if curr[1] > bestRightBoundary {
-				bestRightBoundary = curr[1]
-				toCompare = i
-			}
+			bestRightBoundary = curr[1]
 		}
 	}
 
