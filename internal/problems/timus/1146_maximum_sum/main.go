@@ -56,14 +56,14 @@ func maxSum(matrix [][]int) int {
 func maxSubArraySum(array []int) int {
 	maxSum := MinInt
 	currentSum := 0
-	for _,v := range array {
-		currentSum = maxOf(v, currentSum + v)
+	for _, v := range array {
+		currentSum = maxOf(v, currentSum+v)
 		maxSum = maxOf(maxSum, currentSum)
 	}
 	return maxSum
 }
 
-func maxOf(a,b int) int {
+func maxOf(a, b int) int {
 	if a > b {
 		return a
 	} else {

@@ -15,8 +15,8 @@ func findRotation(mat [][]int, target [][]int) bool {
 }
 
 func rotate(target [][]int) [][]int {
-	target = transpose(target) 	// makes rows as columns
-	return reflect(target)		// reverse each row to get the rotated matrix
+	target = transpose(target) // makes rows as columns
+	return reflect(target)     // reverse each row to get the rotated matrix
 }
 
 func transpose(target [][]int) [][]int {

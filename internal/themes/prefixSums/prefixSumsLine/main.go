@@ -15,11 +15,11 @@ func main() {
 	fmt.Println("array\t\t", a)
 	fmt.Println("prefixes\t", sums)
 
-	fmt.Println(getPref(sums, 1,2))
+	fmt.Println(getPref(sums, 1, 2))
 }
 
 func getPref(sums []int, l, r int) int {
-	if l>=0 {
+	if l >= 0 {
 		return sums[r] - sums[l-1]
 	} else {
 		return sums[r]

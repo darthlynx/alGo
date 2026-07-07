@@ -14,7 +14,7 @@ func TestRotateTheBox(t *testing.T) {
 		{
 			name:    "single row stones with gap",
 			boxGrid: [][]byte{{'#', '.', '#'}},
-			want:    [][]byte{{'.'},{'#'},{'#'}},
+			want:    [][]byte{{'.'}, {'#'}, {'#'}},
 		},
 		{
 			name:    "two rows with obstacles and stones",
@@ -24,22 +24,22 @@ func TestRotateTheBox(t *testing.T) {
 		{
 			name:    "all empty",
 			boxGrid: [][]byte{{'.', '.', '.'}},
-			want:    [][]byte{{'.'},{'.'},{'.'}},
+			want:    [][]byte{{'.'}, {'.'}, {'.'}},
 		},
 		{
 			name:    "all stones",
 			boxGrid: [][]byte{{'#', '#', '#'}},
-			want:    [][]byte{{'#'},{'#'},{'#'}},
+			want:    [][]byte{{'#'}, {'#'}, {'#'}},
 		},
 		{
 			name:    "stone blocked above obstacle",
 			boxGrid: [][]byte{{'#', '*', '.'}},
-			want:    [][]byte{{'#'},{'*'},{'.'}},
+			want:    [][]byte{{'#'}, {'*'}, {'.'}},
 		},
 		{
 			name:    "stone falls below obstacle",
 			boxGrid: [][]byte{{'*', '#', '.'}},
-			want:    [][]byte{{'*'},{'.'},{'#'}},
+			want:    [][]byte{{'*'}, {'.'}, {'#'}},
 		},
 	}
 

@@ -7,8 +7,8 @@ func TestMinimumDistance(t *testing.T) {
 		nums     []int
 		expected int
 	}{
-		{[]int{1,2,1,1,3}, 6},
-		{[]int{1,1,2,3,2,1,2}, 8},
+		{[]int{1, 2, 1, 1, 3}, 6},
+		{[]int{1, 1, 2, 3, 2, 1, 2}, 8},
 		{[]int{1}, -1},
 	}
 

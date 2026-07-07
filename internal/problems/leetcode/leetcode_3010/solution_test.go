@@ -2,7 +2,6 @@ package leetcode3010
 
 import "testing"
 
-
 func TestMinimumCost(t *testing.T) {
 	tests := []struct {
 		name string
@@ -11,17 +10,17 @@ func TestMinimumCost(t *testing.T) {
 	}{
 		{
 			name: "one",
-			nums: []int{1,2,3,12},
+			nums: []int{1, 2, 3, 12},
 			want: 6,
 		},
 		{
 			name: "two",
-			nums: []int{5,4,3},
+			nums: []int{5, 4, 3},
 			want: 12,
 		},
 		{
 			name: "three",
-			nums: []int{10,3,1,1},
+			nums: []int{10, 3, 1, 1},
 			want: 12,
 		},
 	}

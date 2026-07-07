@@ -5,20 +5,20 @@ package leetcode167
 // Time Complexity: O(n)
 // Space Complexity: O(1)
 func twoSum(numbers []int, target int) []int {
-    left := 0
-    right := len(numbers)-1
+	left := 0
+	right := len(numbers) - 1
 
-    for right - left > 0 {
-        currentSum := numbers[left] + numbers[right]
-        if currentSum == target {
-            break
-        }
-        if currentSum > target {
-            right--
-        } else {
-            left++
-        }
-    }
+	for right-left > 0 {
+		currentSum := numbers[left] + numbers[right]
+		if currentSum == target {
+			break
+		}
+		if currentSum > target {
+			right--
+		} else {
+			left++
+		}
+	}
 
-    return []int{left+1, right+1} // 1-based indexing
+	return []int{left + 1, right + 1} // 1-based indexing
 }
