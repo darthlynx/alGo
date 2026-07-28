@@ -15,20 +15,18 @@ func smallestPalindrome(s string) string {
 	left := 0
 	right := n - 1
 
-	for i := range len(chCount) {
+	for i := range chCount {
 		ch := byte(i + 'a')
-		for chCount[i] > 0 {
-			// uneven number of chars (could be only one in palindrome, so we put it in the middle)
-			if chCount[i] == 1 {
-				result[n/2] = ch
-				chCount[i]--
-				continue
-			}
+		for chCount[i] >= 2 {
 			result[left] = ch
 			result[right] = ch
 			chCount[i] -= 2
 			left++
 			right--
+		}
+		// uneven number of chars (could be only one in palindrome, so we put it in the middle)
+		if chCount[i] > 0 {
+			result[n/2] = ch
 		}
 	}
 
