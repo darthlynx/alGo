@@ -8,11 +8,11 @@ func maximumLengthSubstring(s string) int {
 	var charCount [26]int
 	maxLen := 0
 	left := 0
-	
+
 	for right := 0; right < len(s); right++ {
 		charCount[s[right]-'a']++
 
-		for left <= right && moreThanTwo(charCount) {
+		for left <= right && charCount[s[right]-'a'] > 2 {
 			charCount[s[left]-'a']--
 			left++
 		}
@@ -21,13 +21,4 @@ func maximumLengthSubstring(s string) int {
 	}
 
 	return maxLen
-}
-
-func moreThanTwo(charCount [26]int) bool {
-	for _, count := range charCount {
-		if count > 2 {
-			return true
-		}
-	}
-	return false
 }
