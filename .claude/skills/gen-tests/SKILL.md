@@ -1,3 +1,8 @@
+---
+name: gen-tests
+description: Generate a complete table-driven solution_test.go for the current LeetCode/NeetCode problem from its solution.go. Trigger when the user asks to write, generate, or scaffold tests for a Go solution file in this repo.
+---
+
 Read the solution.go file in the current problem directory and generate a complete `solution_test.go` file with table-driven tests.
 
 ## Steps
