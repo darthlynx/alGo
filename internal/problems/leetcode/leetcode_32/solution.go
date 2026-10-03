@@ -7,9 +7,6 @@ package leetcode_32
 func longestValidParentheses(s string) int {
 	longest := 0
 	score := 0
-	// if len(s) < 2 {
-	// 	return 0
-	// }
 
 	left := 0
 	for right := 0; right < len(s); right++ {
@@ -28,7 +25,7 @@ func longestValidParentheses(s string) int {
 		}
 	}
 
-	// reversed order
+	// reversed order (unmatched opening parentheses can hide valid substrings)
 	score = 0 // reset
 	right := len(s) - 1
 	for left := len(s) - 1; left >= 0; left-- {
