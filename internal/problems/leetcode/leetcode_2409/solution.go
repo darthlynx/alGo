@@ -5,6 +5,8 @@ import (
 	"strings"
 )
 
+var months = []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+
 // https://leetcode.com/problems/count-days-spent-together/
 //
 // Time Complexity: O(1),
@@ -24,11 +26,9 @@ func countDaysTogether(arriveAlice string, leaveAlice string, arriveBob string, 
 }
 
 func toDays(d string) int {
-	months := []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
-
-	res := strings.Split(d, "-")
-	day, _ := strconv.Atoi(res[1])
-	month, _ := strconv.Atoi(res[0])
+	parts := strings.Split(d, "-")
+	day, _ := strconv.Atoi(parts[1])
+	month, _ := strconv.Atoi(parts[0])
 
 	days := 0
 	for i := 0; i < month-1; i++ {
